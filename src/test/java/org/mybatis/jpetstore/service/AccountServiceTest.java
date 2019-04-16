@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2018 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,16 +15,14 @@
  */
 package org.mybatis.jpetstore.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mybatis.jpetstore.domain.Account;
 import org.mybatis.jpetstore.mapper.AccountMapper;
 
@@ -32,71 +30,27 @@ import org.mybatis.jpetstore.mapper.AccountMapper;
  * @author Eduardo Macarron
  *
  */
-@ExtendWith(MockitoExtension.class)
-class AccountServiceTest {
+@RunWith(MockitoJUnitRunner.class)
+public class AccountServiceTest {
 
   @Mock
   private AccountMapper accountMapper;
-
+  
   @InjectMocks
   private AccountService accountService;
 
   @Test
-  void shouldCallTheMapperToInsertAnAccount() {
-    // given
+  public void shouldCallTheMapperToInsertAnAccount() {
+    //given
     Account account = new Account();
 
-    // when
+    //when
     accountService.insertAccount(account);
-
-    // then
+    
+    //then
     verify(accountMapper).insertAccount(eq(account));
     verify(accountMapper).insertProfile(eq(account));
     verify(accountMapper).insertSignon(eq(account));
-  }
-
-  @Test
-  void shouldCallTheMapperToUpdateAnAccount() {
-    // given
-    Account account = new Account();
-    account.setPassword("foo");
-
-    // when
-    accountService.updateAccount(account);
-
-    // then
-    verify(accountMapper).updateAccount(eq(account));
-    verify(accountMapper).updateProfile(eq(account));
-    verify(accountMapper).updateSignon(eq(account));
-  }
-
-  @Test
-  void shouldCallTheMapperToGetAccountAnUsername() {
-    // given
-    String username = "bar";
-    Account expectedAccount = new Account();
-    when(accountMapper.getAccountByUsername(username)).thenReturn(expectedAccount);
-
-    // when
-    Account account = accountService.getAccount(username);
-
-    // then
-    assertThat(account).isSameAs(expectedAccount);
-  }
-
-  @Test
-  void shouldCallTheMapperToGetAccountAnUsernameAndPassword() {
-    // given
-    String username = "bar";
-    String password = "foo";
-
-    // when
-    Account expectedAccount = new Account();
-    when(accountMapper.getAccountByUsernameAndPassword(username, password)).thenReturn(expectedAccount);
-    Account account = accountService.getAccount(username, password);
-
-    // then
-    assertThat(account).isSameAs(expectedAccount);
   }
 
 }

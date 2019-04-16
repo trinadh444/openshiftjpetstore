@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2018 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -30,9 +30,8 @@ import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.service.CatalogService;
 
 /**
- * The Class CartActionBean.
- *
  * @author Eduardo Macarron
+ *
  */
 @SessionScope
 public class CartActionBean extends AbstractActionBean {
@@ -60,11 +59,6 @@ public class CartActionBean extends AbstractActionBean {
     this.workingItemId = workingItemId;
   }
 
-  /**
-   * Adds the item to cart.
-   *
-   * @return the resolution
-   */
   public Resolution addItemToCart() {
     if (cart.containsItemId(workingItemId)) {
       cart.incrementQuantityByItemId(workingItemId);
@@ -80,11 +74,6 @@ public class CartActionBean extends AbstractActionBean {
     return new ForwardResolution(VIEW_CART);
   }
 
-  /**
-   * Removes the item from cart.
-   *
-   * @return the resolution
-   */
   public Resolution removeItemFromCart() {
 
     Item item = cart.removeItemById(workingItemId);
@@ -97,26 +86,21 @@ public class CartActionBean extends AbstractActionBean {
     }
   }
 
-  /**
-   * Update cart quantities.
-   *
-   * @return the resolution
-   */
   public Resolution updateCartQuantities() {
     HttpServletRequest request = context.getRequest();
 
     Iterator<CartItem> cartItems = getCart().getAllCartItems();
     while (cartItems.hasNext()) {
-      CartItem cartItem = cartItems.next();
+      CartItem cartItem = (CartItem) cartItems.next();
       String itemId = cartItem.getItem().getItemId();
       try {
-        int quantity = Integer.parseInt(request.getParameter(itemId));
+        int quantity = Integer.parseInt((String) request.getParameter(itemId));
         getCart().setQuantityByItemId(itemId, quantity);
         if (quantity < 1) {
           cartItems.remove();
         }
       } catch (Exception e) {
-        // ignore parse exceptions on purpose
+        //ignore parse exceptions on purpose
       }
     }
 

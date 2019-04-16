@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2010-2017 the original author or authors.
+       Copyright 2010-2016 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
        limitations under the License.
 
 -->
+
 <document xmlns="http://maven.apache.org/XDOC/2.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
@@ -88,9 +89,9 @@ SUM:                            58            823            612           3464
       	<p> JPetStore 6 follows the typical maven project structure </p>
 <pre>/jpetstore                    <tt>&lt;-- Maven pom.xml goes here.</tt>
   /src
-    /main
+    /main/
       /java                   <tt>&lt;-- Java code goes here.</tt>
-        /org
+        /org/
           /mybatis
             /jpetstore
               /domain         <tt>&lt;-- Business domain objects go here.</tt>

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2017 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,9 +28,8 @@ import org.mybatis.jpetstore.domain.Product;
 import org.mybatis.jpetstore.service.CatalogService;
 
 /**
- * The Class CatalogActionBean.
- *
  * @author Eduardo Macarron
+ *
  */
 @SessionScope
 public class CatalogActionBean extends AbstractActionBean {
@@ -145,11 +144,6 @@ public class CatalogActionBean extends AbstractActionBean {
     return new ForwardResolution(MAIN);
   }
 
-  /**
-   * View category.
-   *
-   * @return the forward resolution
-   */
   public ForwardResolution viewCategory() {
     if (categoryId != null) {
       productList = catalogService.getProductListByCategory(categoryId);
@@ -158,11 +152,6 @@ public class CatalogActionBean extends AbstractActionBean {
     return new ForwardResolution(VIEW_CATEGORY);
   }
 
-  /**
-   * View product.
-   *
-   * @return the forward resolution
-   */
   public ForwardResolution viewProduct() {
     if (productId != null) {
       itemList = catalogService.getItemListByProduct(productId);
@@ -171,22 +160,12 @@ public class CatalogActionBean extends AbstractActionBean {
     return new ForwardResolution(VIEW_PRODUCT);
   }
 
-  /**
-   * View item.
-   *
-   * @return the forward resolution
-   */
   public ForwardResolution viewItem() {
     item = catalogService.getItem(itemId);
     product = item.getProduct();
     return new ForwardResolution(VIEW_ITEM);
   }
 
-  /**
-   * Search products.
-   *
-   * @return the forward resolution
-   */
   public ForwardResolution searchProducts() {
     if (keyword == null || keyword.length() < 1) {
       setMessage("Please enter a keyword to search for, then press the search button.");
@@ -197,9 +176,6 @@ public class CatalogActionBean extends AbstractActionBean {
     }
   }
 
-  /**
-   * Clear.
-   */
   public void clear() {
     keyword = null;
 

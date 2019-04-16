@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2018 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.mybatis.jpetstore.web.actions;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,9 +30,8 @@ import org.mybatis.jpetstore.domain.Order;
 import org.mybatis.jpetstore.service.OrderService;
 
 /**
- * The Class OrderActionBean.
- *
  * @author Eduardo Macarron
+ *
  */
 @SessionScope
 public class OrderActionBean extends AbstractActionBean {
@@ -56,7 +55,11 @@ public class OrderActionBean extends AbstractActionBean {
   private List<Order> orderList;
 
   static {
-    CARD_TYPE_LIST = Collections.unmodifiableList(Arrays.asList("Visa", "MasterCard", "American Express"));
+    List<String> cardList = new ArrayList<String>();
+    cardList.add("Visa");
+    cardList.add("MasterCard");
+    cardList.add("American Express");
+    CARD_TYPE_LIST = Collections.unmodifiableList(cardList);
   }
 
   public int getOrderId() {
@@ -99,11 +102,6 @@ public class OrderActionBean extends AbstractActionBean {
     return orderList;
   }
 
-  /**
-   * List orders.
-   *
-   * @return the resolution
-   */
   public Resolution listOrders() {
     HttpSession session = context.getRequest().getSession();
     AccountActionBean accountBean = (AccountActionBean) session.getAttribute("/actions/Account.action");
@@ -111,11 +109,6 @@ public class OrderActionBean extends AbstractActionBean {
     return new ForwardResolution(LIST_ORDERS);
   }
 
-  /**
-   * New order form.
-   *
-   * @return the resolution
-   */
   public Resolution newOrderForm() {
     HttpSession session = context.getRequest().getSession();
     AccountActionBean accountBean = (AccountActionBean) session.getAttribute("/actions/Account.action");
@@ -134,11 +127,6 @@ public class OrderActionBean extends AbstractActionBean {
     }
   }
 
-  /**
-   * New order.
-   *
-   * @return the resolution
-   */
   public Resolution newOrder() {
     HttpSession session = context.getRequest().getSession();
 
@@ -163,11 +151,6 @@ public class OrderActionBean extends AbstractActionBean {
     }
   }
 
-  /**
-   * View order.
-   *
-   * @return the resolution
-   */
   public Resolution viewOrder() {
     HttpSession session = context.getRequest().getSession();
 
@@ -184,9 +167,6 @@ public class OrderActionBean extends AbstractActionBean {
     }
   }
 
-  /**
-   * Clear.
-   */
   public void clear() {
     order = new Order();
     shippingAddressRequired = false;

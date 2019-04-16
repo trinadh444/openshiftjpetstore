@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2018 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -23,9 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * The Class Order.
- *
  * @author Eduardo Macarron
+ *
  */
 public class Order implements Serializable {
 
@@ -57,7 +56,7 @@ public class Order implements Serializable {
   private String cardType;
   private String locale;
   private String status;
-  private List<LineItem> lineItems = new ArrayList<>();
+  private List<LineItem> lineItems = new ArrayList<LineItem>();
 
   public int getOrderId() {
     return orderId;
@@ -275,14 +274,6 @@ public class Order implements Serializable {
     return lineItems;
   }
 
-  /**
-   * Inits the order.
-   *
-   * @param account
-   *          the account
-   * @param cart
-   *          the cart
-   */
   public void initOrder(Account account, Cart cart) {
 
     username = account.getUsername();
@@ -317,7 +308,7 @@ public class Order implements Serializable {
 
     Iterator<CartItem> i = cart.getAllCartItems();
     while (i.hasNext()) {
-      CartItem cartItem = i.next();
+      CartItem cartItem = (CartItem) i.next();
       addLineItem(cartItem);
     }
 

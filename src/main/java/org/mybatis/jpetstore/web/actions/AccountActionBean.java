@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2018 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.mybatis.jpetstore.web.actions;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,9 +35,8 @@ import org.mybatis.jpetstore.service.AccountService;
 import org.mybatis.jpetstore.service.CatalogService;
 
 /**
- * The Class AccountActionBean.
- *
  * @author Eduardo Macarron
+ *
  */
 @SessionScope
 public class AccountActionBean extends AbstractActionBean {
@@ -61,19 +60,29 @@ public class AccountActionBean extends AbstractActionBean {
   private boolean authenticated;
 
   static {
-    LANGUAGE_LIST = Collections.unmodifiableList(Arrays.asList("english", "japanese"));
-    CATEGORY_LIST = Collections.unmodifiableList(Arrays.asList("FISH", "DOGS", "REPTILES", "CATS", "BIRDS"));
+    List<String> langList = new ArrayList<String>();
+    langList.add("english");
+    langList.add("japanese");
+    LANGUAGE_LIST = Collections.unmodifiableList(langList);
+
+    List<String> catList = new ArrayList<String>();
+    catList.add("FISH");
+    catList.add("DOGS");
+    catList.add("REPTILES");
+    catList.add("CATS");
+    catList.add("BIRDS");
+    CATEGORY_LIST = Collections.unmodifiableList(catList);
   }
 
   public Account getAccount() {
     return this.account;
   }
-
+  
   public String getUsername() {
     return account.getUsername();
   }
 
-  @Validate(required = true, on = { "signon", "newAccount", "editAccount" })
+  @Validate(required=true, on={"signon", "newAccount", "editAccount"})
   public void setUsername(String username) {
     account.setUsername(username);
   }
@@ -82,7 +91,7 @@ public class AccountActionBean extends AbstractActionBean {
     return account.getPassword();
   }
 
-  @Validate(required = true, on = { "signon", "newAccount", "editAccount" })
+  @Validate(required=true, on={"signon", "newAccount", "editAccount"})
   public void setPassword(String password) {
     account.setPassword(password);
   }
@@ -106,12 +115,7 @@ public class AccountActionBean extends AbstractActionBean {
   public Resolution newAccountForm() {
     return new ForwardResolution(NEW_ACCOUNT);
   }
-
-  /**
-   * New account.
-   *
-   * @return the resolution
-   */
+  
   public Resolution newAccount() {
     accountService.insertAccount(account);
     account = accountService.getAccount(account.getUsername());
@@ -120,46 +124,26 @@ public class AccountActionBean extends AbstractActionBean {
     return new RedirectResolution(CatalogActionBean.class);
   }
 
-  /**
-   * Edits the account form.
-   *
-   * @return the resolution
-   */
   public Resolution editAccountForm() {
     return new ForwardResolution(EDIT_ACCOUNT);
   }
 
-  /**
-   * Edits the account.
-   *
-   * @return the resolution
-   */
   public Resolution editAccount() {
     accountService.updateAccount(account);
     account = accountService.getAccount(account.getUsername());
     myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
     return new RedirectResolution(CatalogActionBean.class);
   }
-
-  /**
-   * Signon form.
-   *
-   * @return the resolution
-   */
+  
   @DefaultHandler
   public Resolution signonForm() {
     return new ForwardResolution(SIGNON);
   }
 
-  /**
-   * Signon.
-   *
-   * @return the resolution
-   */
   public Resolution signon() {
 
     account = accountService.getAccount(getUsername(), getPassword());
-
+   
     if (account == null) {
       String value = "Invalid username or password.  Signon failed.";
       setMessage(value);
@@ -176,29 +160,16 @@ public class AccountActionBean extends AbstractActionBean {
     }
   }
 
-  /**
-   * Signoff.
-   *
-   * @return the resolution
-   */
   public Resolution signoff() {
     context.getRequest().getSession().invalidate();
     clear();
     return new RedirectResolution(CatalogActionBean.class);
   }
 
-  /**
-   * Checks if is authenticated.
-   *
-   * @return true, if is authenticated
-   */
   public boolean isAuthenticated() {
     return authenticated && account != null && account.getUsername() != null;
   }
 
-  /**
-   * Clear.
-   */
   public void clear() {
     account = new Account();
     myList = null;

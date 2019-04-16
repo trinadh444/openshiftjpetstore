@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2018 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,16 +25,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The Class Cart.
- *
  * @author Eduardo Macarron
+ *
  */
 public class Cart implements Serializable {
 
   private static final long serialVersionUID = 8329559983943337176L;
-
-  private final Map<String, CartItem> itemMap = Collections.synchronizedMap(new HashMap<>());
-  private final List<CartItem> itemList = new ArrayList<>();
+  
+  private final Map<String, CartItem> itemMap = Collections.synchronizedMap(new HashMap<String, CartItem>());
+  private final List<CartItem> itemList = new ArrayList<CartItem>();
 
   public Iterator<CartItem> getCartItems() {
     return itemList.iterator();
@@ -56,16 +55,8 @@ public class Cart implements Serializable {
     return itemMap.containsKey(itemId);
   }
 
-  /**
-   * Adds the item.
-   *
-   * @param item
-   *          the item
-   * @param isInStock
-   *          the is in stock
-   */
   public void addItem(Item item, boolean isInStock) {
-    CartItem cartItem = itemMap.get(item.getItemId());
+    CartItem cartItem = (CartItem) itemMap.get(item.getItemId());
     if (cartItem == null) {
       cartItem = new CartItem();
       cartItem.setItem(item);
@@ -77,15 +68,8 @@ public class Cart implements Serializable {
     cartItem.incrementQuantity();
   }
 
-  /**
-   * Removes the item by id.
-   *
-   * @param itemId
-   *          the item id
-   * @return the item
-   */
   public Item removeItemById(String itemId) {
-    CartItem cartItem = itemMap.remove(itemId);
+    CartItem cartItem = (CartItem) itemMap.remove(itemId);
     if (cartItem == null) {
       return null;
     } else {
@@ -94,31 +78,27 @@ public class Cart implements Serializable {
     }
   }
 
-  /**
-   * Increment quantity by item id.
-   *
-   * @param itemId
-   *          the item id
-   */
   public void incrementQuantityByItemId(String itemId) {
-    CartItem cartItem = itemMap.get(itemId);
+    CartItem cartItem = (CartItem) itemMap.get(itemId);
     cartItem.incrementQuantity();
   }
 
   public void setQuantityByItemId(String itemId, int quantity) {
-    CartItem cartItem = itemMap.get(itemId);
+    CartItem cartItem = (CartItem) itemMap.get(itemId);
     cartItem.setQuantity(quantity);
   }
 
-  /**
-   * Gets the sub total.
-   *
-   * @return the sub total
-   */
   public BigDecimal getSubTotal() {
-    return itemList.stream()
-        .map(cartItem -> cartItem.getItem().getListPrice().multiply(new BigDecimal(cartItem.getQuantity())))
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
+    BigDecimal subTotal = new BigDecimal("0");
+    Iterator<CartItem> items = getAllCartItems();
+    while (items.hasNext()) {
+      CartItem cartItem = (CartItem) items.next();
+      Item item = cartItem.getItem();
+      BigDecimal listPrice = item.getListPrice();
+      BigDecimal quantity = new BigDecimal(String.valueOf(cartItem.getQuantity()));
+      subTotal = subTotal.add(listPrice.multiply(quantity));
+    }
+    return subTotal;
   }
 
 }

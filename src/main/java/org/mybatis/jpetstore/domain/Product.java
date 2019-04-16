@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2017 the original author or authors.
+ *    Copyright 2010-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,14 +18,13 @@ package org.mybatis.jpetstore.domain;
 import java.io.Serializable;
 
 /**
- * The Class Product.
- *
  * @author Eduardo Macarron
+ *
  */
 public class Product implements Serializable {
 
   private static final long serialVersionUID = -7492639752670189553L;
-
+  
   private String productId;
   private String categoryId;
   private String name;
