@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2016 the original author or authors.
+ *    Copyright 2010-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,11 +18,13 @@ package org.mybatis.jpetstore.mapper;
 import org.mybatis.jpetstore.domain.Sequence;
 
 /**
- * @author Eduardo Macarron
+ * The Interface SequenceMapper.
  *
+ * @author Eduardo Macarron
  */
 public interface SequenceMapper {
 
   Sequence getSequence(Sequence sequence);
+
   void updateSequence(Sequence sequence);
 }

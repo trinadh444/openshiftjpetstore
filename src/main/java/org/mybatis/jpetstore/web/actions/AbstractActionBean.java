@@ -1,5 +1,5 @@
 /**
- *    Copyright 2010-2016 the original author or authors.
+ *    Copyright 2010-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,8 +22,9 @@ import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.SimpleMessage;
 
 /**
- * @author Eduardo Macarron
+ * The Class AbstractActionBean.
  *
+ * @author Eduardo Macarron
  */
 public abstract class AbstractActionBean implements ActionBean, Serializable {
 
@@ -36,7 +37,7 @@ public abstract class AbstractActionBean implements ActionBean, Serializable {
   protected void setMessage(String value) {
     context.getMessages().add(new SimpleMessage(value));
   }
-  
+
   @Override
   public ActionBeanContext getContext() {
     return context;
