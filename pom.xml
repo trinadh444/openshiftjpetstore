@@ -57,17 +57,11 @@
     </site>
 	<snapshotRepository>
 		<id>nexus-snapshots</id>
-		<url>http://16.181.235.56:8088/nexus/content/repositories/Jpetstore</url>
+		<url>http://52.229.171.196:8081/repository/java_demo/java/poc/jpetstore/2.0-SNAPSHOT/</url>
 </snapshotRepository>
 </distributionManagement>
   </distributionManagement> -->
-  <distributionManagement>
-   		<snapshotRepository>
-      		<id>DemoApp-snapshots</id>
-      		<url>http://52.229.171.196:8081/repository/java_demo/java/poc/jpetstore/2.0-SNAPSHOT/</url>
-   		</snapshotRepository>
-	</distributionManagement>	
-
+  
   <dependencies>
     <dependency>
       <groupId>ognl</groupId>
