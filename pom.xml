@@ -61,6 +61,12 @@
 </snapshotRepository>
 </distributionManagement>
   </distributionManagement> -->
+  <distributionManagement>
+   		<snapshotRepository>
+      		<id>DemoApp-snapshots</id>
+      		<url>http://52.229.171.196:8081/repository/java_demo/java/poc/jpetstore/2.0-SNAPSHOT/</url>
+   		</snapshotRepository>
+	</distributionManagement>	
 
   <dependencies>
     <dependency>
