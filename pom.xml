@@ -50,17 +50,12 @@
     <url>https://travis-ci.org/mybatis/jpetstore-6</url>
   </ciManagement>
   <distributionManagement>
-    <site>
-      <id>gh-pages</id>
-      <name>Mybatis GitHub Pages</name>
-      <url>git:ssh://git@github.com/mybatis/jpetstore-6.git?gh-pages#</url>
-    </site>
-	<snapshotRepository>
-		<id>nexus-snapshots</id>
-		<url>http://52.229.171.196:8081/repository/java_demo/java/poc/jpetstore/2.0-SNAPSHOT/</url>
+    <snapshotRepository>
+    <id>nexus-snapshots</id>
+    <url>http://52.229.171.196:8081/repository/java_demo/java/poc/jpetstore/2.0-SNAPSHOT/</url>
 </snapshotRepository>
 </distributionManagement>
-  </distributionManagement> -->
+  
   
   <dependencies>
     <dependency>
