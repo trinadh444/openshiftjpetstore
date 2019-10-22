@@ -1,6 +1,6 @@
 [
   {
     "name": "ecs-java",
-    "imageUri": "11111EXAMPLE.dkr.ecr.us-west-2.amazonaws.com/ecs-repo:latest"
+    "imageUri": "663265013238.dkr.ecr.ap-south-1.amazonaws.com/awsjava"
   }
 ]
