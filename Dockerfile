@@ -1,7 +1,5 @@
 FROM tomcat
 USER root
-COPY target/jpetstore.war /usr/local/tomcat/webapps
-RUN cd /usr/local/tomcat/webapps
-RUN ls
-RUN cd webapps
+COPY target/jpetstore.war /usr/local/tomcat/webapps/
+RUN cd /usr/local/tomcat/webapps/
 RUN ls
