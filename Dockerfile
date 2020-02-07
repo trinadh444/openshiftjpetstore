@@ -1,7 +1,7 @@
 FROM tomcat
 USER root
 RUN apt-get update
-RUN apt-get install maven
+RUN apt-get install maven -y
 RUN cd /usr/local/
 RUN mkdir project
 COPY . /usr/local/project
