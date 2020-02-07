@@ -7,5 +7,4 @@ RUN mkdir project
 COPY . /usr/local/project/
 RUN cd /usr/local/project/ && mvn clean install -Dmaven.test.skip=true
 RUN cp /usr/local/project/target/jpetstore.war /usr/local/tomcat/webapps/
-RUN cd /usr/local/tomcat/webapps/
-RUN ls
+RUN cd /usr/local/tomcat/webapps/ && ls
